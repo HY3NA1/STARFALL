@@ -27,9 +27,9 @@ public class StatVariables : MonoBehaviour
 
 
     //Enemy Only
-    public bool TargerLeft;
-    public bool TargerRight;
-    public bool TargetCenter;
+    public bool IsTargetLeft;
+    public bool IsTargetRight;
+    public bool IsTargetCenter;
 
     void Start()
     {

@@ -10,8 +10,11 @@ public class EitanSelectAction : EitanBaseStates
     private Button BaseAttackButton;
     public override void EnterState(EitanStateManager Eitan)
     {
+        GameObject myEventSystem = GameObject.Find("EventSystem");
         BaseAttackButton = GameObject.Find("Attack").GetComponent<Button>();
+        myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(GameObject.Find("Attack"));
         BaseAttackButton.onClick.AddListener(delegate { PerformBaseAttack(Eitan); });
+
     }
 
     public override void UpdateState(EitanStateManager Eitan)

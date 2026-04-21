@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class OdetteTurnStart : OdetteBaseStates
@@ -9,14 +11,16 @@ public class OdetteTurnStart : OdetteBaseStates
 
     public override void EnterState(OdetteStateManager Odette)
     {
+        CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
+        stats = GameObject.Find("Odette").GetComponent<StatVariables>();
         CameraHolder = GameObject.Find("CameraMain");
-        stats = GameObject.Find("Eitan").GetComponent<StatVariables>();
         if (stats.IsOnLeft)
         {
             CameraAnimator.Play("CameraAnimationLeftTurn");
             CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().LeftCoord);
             CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().LeftRotation);
+
         }
         else if (stats.IsOnRight)
         {
@@ -25,19 +29,27 @@ public class OdetteTurnStart : OdetteBaseStates
             CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().RightRotation);
 
         }
-        CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
-        CombatMenu.SetActive(true);
-        Debug.Log("Odette's Turn");
-        Odette.SwitchState(Odette.SelectAction);
+
+
+
+
     }
 
     public override void UpdateState(OdetteStateManager Odette)
     {
+        if (GameObject.Find("CameraMain").GetComponent<FinishedAnimationChecker>().IsAnimationDone == true)
+        {
+            GameObject.Find("CameraMain").GetComponent<FinishedAnimationChecker>().IsAnimationDone = false;
+            CombatMenu.SetActive(true);
+            Debug.Log("Odette's Turn");
+            Odette.SwitchState(Odette.SelectAction);
+
+        }
 
     }
-
     public override void LeaveState(OdetteStateManager Odette)
     {
 
     }
+
 }
