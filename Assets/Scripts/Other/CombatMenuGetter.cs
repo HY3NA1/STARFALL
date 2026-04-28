@@ -6,6 +6,9 @@ public class CombatMenuGetter : MonoBehaviour
     public GameObject ReciticleLeft;
     public GameObject ReciticleRight;
     public GameObject ReciticleCenter;
+    public GameObject HPLeft;
+    public GameObject HPRight;
+    public GameObject HPCenter;
     void Start()
     {
   

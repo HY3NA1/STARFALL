@@ -10,6 +10,7 @@ public class OdetteStateManager : MonoBehaviour
     public OdetteSelectAction SelectAction = new OdetteSelectAction();
     public OdetteBaseAttack BaseAttack = new OdetteBaseAttack();
     public OdetteTurnEnd TurnEnd = new OdetteTurnEnd();
+    public OdetteTargetSelect TargetSelect = new OdetteTargetSelect();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

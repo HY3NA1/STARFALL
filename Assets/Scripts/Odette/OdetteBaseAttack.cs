@@ -1,10 +1,22 @@
 using UnityEngine;
+using System;
 
 public class OdetteBaseAttack : OdetteBaseStates
 {
+    private StatVariables stats;
+    private int WillCrit;
+    private float DamageVariance;
     public override void EnterState(OdetteStateManager Odette)
     {
-
+        stats = GameObject.Find("Odette").GetComponent<StatVariables>();
+        WillCrit = UnityEngine.Random.Range(0, 100);
+        DamageVariance = UnityEngine.Random.Range(0.85f, 1);
+        stats.NextAttackDamage = (int)Math.Round((stats.Strength.Value * DamageVariance), 0);
+        if (WillCrit < stats.CritChance.Value)
+        {
+            stats.NextAttackDamage *= 2;
+        }
+        Odette.SwitchState(Odette.TargetSelect);
     }
 
     public override void UpdateState(OdetteStateManager Odette)

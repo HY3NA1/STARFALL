@@ -135,7 +135,7 @@ public class TurnManager : MonoBehaviour
         if ((CharToGoNext.GetComponent<StatVariables>().Agility.Value / 2) > CharToMoveLast.GetComponent<StatVariables>().Agility.Value)
         {
             Debug.Log("Checking if speed 2x");
-            CharToGoNext.GetComponent<StatVariables>().Agility.AddModifier(new StatModifier(0.5f, StatModType.PercentAddDecrease, this, -1));
+            CharToGoNext.GetComponent<StatVariables>().Agility.AddModifier(new StatModifier(0.5f, StatModType.PercentAddDecrease, gameObject, -1));
         }
         else
         {
@@ -146,6 +146,7 @@ public class TurnManager : MonoBehaviour
         if (CharToGoNext == CharToMoveLast)
         {
             Debug.Log("Cleaning up round");
+
             RoundCleanUp();
         }
         else 
@@ -159,7 +160,7 @@ public class TurnManager : MonoBehaviour
     {
         for (int i = 0; i < AllActive.Count; i++)
         {
-            AllActive[i].GetComponent<StatVariables>().Agility.RemoveAllModifiersFromSource(true);
+            AllActive[i].GetComponent<StatVariables>().Agility.RemoveAllModifiersFromSource(gameObject);
         }
         BeginRound();
     }

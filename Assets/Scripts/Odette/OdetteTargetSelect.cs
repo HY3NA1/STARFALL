@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class EitanTargetSelect : EitanBaseStates
+public class OdetteTargetSelect : OdetteBaseStates
 {
     private GameObject[] EnemyArray;
     private List<GameObject> PotentialTargets = new List<GameObject>();
@@ -27,7 +27,7 @@ public class EitanTargetSelect : EitanBaseStates
     StatVariables stats;
     GameObject CombatMenu;
     GameObject CameraHolder;
-    public override void EnterState(EitanStateManager Eitan) 
+    public override void EnterState(OdetteStateManager Odette)
     {
         CenterHolder = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().ReciticleCenter.gameObject;
         LeftHolder = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().ReciticleLeft.gameObject;
@@ -39,7 +39,7 @@ public class EitanTargetSelect : EitanBaseStates
         LeftTarget = LeftHolder.GetComponent<Button>();
         RightTarget = RightHolder.GetComponent<Button>();
         EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-        
+
         LeftHolderNeedsActivation = false;
         RightHolderNeedsActivation = false;
         CenterHolderNeedsActivation = false;
@@ -47,7 +47,7 @@ public class EitanTargetSelect : EitanBaseStates
 
         CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
-        stats = GameObject.Find("Eitan").GetComponent<StatVariables>();
+        stats = GameObject.Find("Odette").GetComponent<StatVariables>();
         CameraHolder = GameObject.Find("CameraMain");
         if (stats.IsOnLeft)
         {
@@ -65,16 +65,7 @@ public class EitanTargetSelect : EitanBaseStates
         }
 
 
-
-
-
-
-
-
-
-
-
-        for (int i = 0; i < EnemyArray.Length; i++) 
+        for (int i = 0; i < EnemyArray.Length; i++)
         {
             if (EnemyArray[i].GetComponent<StatVariables>().IsDead != true)
             {
@@ -84,21 +75,21 @@ public class EitanTargetSelect : EitanBaseStates
         Debug.Log("There are" + PotentialTargets.Count + "Targets");
         for (int i = 0; i < PotentialTargets.Count; i++)
         {
-            if (PotentialTargets[i].GetComponent<StatVariables>().IsTargetLeft) 
+            if (PotentialTargets[i].GetComponent<StatVariables>().IsTargetLeft)
             {
                 Debug.Log("Target Set To Left");
-                EnemyLeft= PotentialTargets[i];
+                EnemyLeft = PotentialTargets[i];
                 LeftHolderNeedsActivation = true;
-                
-                
+
+
             }
-            else if(PotentialTargets[i].GetComponent<StatVariables>().IsTargetCenter)
+            else if (PotentialTargets[i].GetComponent<StatVariables>().IsTargetCenter)
             {
                 Debug.Log("Target Set To Center");
                 EnemyCenter = PotentialTargets[i];
                 CenterHolderNeedsActivation = true;
-                
-                
+
+
             }
             else if (PotentialTargets[i].GetComponent<StatVariables>().IsTargetRight)
             {
@@ -108,49 +99,49 @@ public class EitanTargetSelect : EitanBaseStates
 
             }
         }
-        
-        
-        
+
+
+
 
     }
 
-    public override void UpdateState(EitanStateManager Eitan) 
+    public override void UpdateState(OdetteStateManager Odette)
     {
         GameObject myEventSystem = GameObject.Find("EventSystem");
         if (GameObject.Find("CameraMain").GetComponent<FinishedAnimationChecker>().IsAnimationDone == true)
         {
             GameObject.Find("CameraMain").GetComponent<FinishedAnimationChecker>().IsAnimationDone = false;
-            if (RightHolderNeedsActivation) 
+            if (RightHolderNeedsActivation)
             {
                 RightHolder.SetActive(true);
                 RightHP.SetActive(true);
-                RightTarget.onClick.AddListener(delegate { HittingRight(Eitan); });
+                RightTarget.onClick.AddListener(delegate { HittingRight(Odette); });
                 myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(RightHolder);
             }
-            if (LeftHolderNeedsActivation) 
+            if (LeftHolderNeedsActivation)
             {
                 LeftHolder.SetActive(true);
                 LeftHP.SetActive(true);
-                LeftTarget.onClick.AddListener(delegate { HittingLeft(Eitan); });
+                LeftTarget.onClick.AddListener(delegate { HittingLeft(Odette); });
                 myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(LeftHolder);
             }
-            if (CenterHolderNeedsActivation) 
+            if (CenterHolderNeedsActivation)
             {
                 CenterHolder.SetActive(true);
                 CenterHP.SetActive(true);
-                CenterTarget.onClick.AddListener(delegate { HittingCenter(Eitan); });
+                CenterTarget.onClick.AddListener(delegate { HittingCenter(Odette); });
                 myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(CenterHolder);
             }
-            
+
 
         }
     }
 
-    public override void LeaveState(EitanStateManager Eitan) 
+    public override void LeaveState(OdetteStateManager Odette)
     {
-        LeftTarget.onClick.RemoveListener(delegate { HittingLeft(Eitan); });
-        RightTarget.onClick.RemoveListener(delegate { HittingRight(Eitan); });
-        CenterTarget.onClick.RemoveListener(delegate { HittingCenter(Eitan); });
+        LeftTarget.onClick.RemoveListener(delegate { HittingLeft(Odette); });
+        RightTarget.onClick.RemoveListener(delegate { HittingRight(Odette); });
+        CenterTarget.onClick.RemoveListener(delegate { HittingCenter(Odette); });
         CenterHolder.SetActive(false);
         LeftHolder.SetActive(false);
         RightHolder.SetActive(false);
@@ -163,23 +154,23 @@ public class EitanTargetSelect : EitanBaseStates
         PotentialTargets.Clear();
     }
 
-    private void HittingRight(EitanStateManager Eitan)
+    private void HittingRight(OdetteStateManager Odette)
     {
         Debug.Log("Damage Right");
-        EnemyRight.GetComponent<StatVariables>().HitPoints = EnemyRight.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Eitan").GetComponent<StatVariables>().NextAttackDamage - EnemyRight.GetComponent<StatVariables>().Endurance.Value);
-        Eitan.SwitchState(Eitan.TurnEnd);
+        EnemyRight.GetComponent<StatVariables>().HitPoints = EnemyRight.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyRight.GetComponent<StatVariables>().Endurance.Value);
+        Odette.SwitchState(Odette.TurnEnd);
     }
-    private void HittingLeft(EitanStateManager Eitan)
+    private void HittingLeft(OdetteStateManager Odette)
     {
         Debug.Log("Damage Left");
-        EnemyLeft.GetComponent<StatVariables>().HitPoints = EnemyLeft.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Eitan").GetComponent<StatVariables>().NextAttackDamage - EnemyLeft.GetComponent<StatVariables>().Endurance.Value);
-        Eitan.SwitchState(Eitan.TurnEnd);
+        EnemyLeft.GetComponent<StatVariables>().HitPoints = EnemyLeft.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyLeft.GetComponent<StatVariables>().Endurance.Value);
+        Odette.SwitchState(Odette.TurnEnd);
     }
-    private void HittingCenter(EitanStateManager Eitan)
+    private void HittingCenter(OdetteStateManager Odette)
     {
         Debug.Log("Damage Center");
-        EnemyCenter.GetComponent<StatVariables>().HitPoints = EnemyCenter.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Eitan").GetComponent<StatVariables>().NextAttackDamage - EnemyCenter.GetComponent<StatVariables>().Endurance.Value);
-        Eitan.SwitchState(Eitan.TurnEnd);
+        EnemyCenter.GetComponent<StatVariables>().HitPoints = EnemyCenter.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyCenter.GetComponent<StatVariables>().Endurance.Value);
+        Odette.SwitchState(Odette.TurnEnd);
     }
 
 }
