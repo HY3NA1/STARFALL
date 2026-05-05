@@ -9,6 +9,7 @@ public class CombatMenuGetter : MonoBehaviour
     public GameObject HPLeft;
     public GameObject HPRight;
     public GameObject HPCenter;
+    public GameObject SkillMenu;
     void Start()
     {
   

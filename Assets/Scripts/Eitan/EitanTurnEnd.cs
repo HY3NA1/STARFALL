@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class EitanTurnEnd : EitanBaseStates
@@ -8,6 +9,7 @@ public class EitanTurnEnd : EitanBaseStates
     GameObject CameraHolder;
     public override void EnterState(EitanStateManager Eitan)
     {
+        
         CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
         CombatMenu.SetActive(false);
         ThisCharacter = GameObject.Find("Eitan");
@@ -16,6 +18,11 @@ public class EitanTurnEnd : EitanBaseStates
         CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
         StatVariables = ThisCharacter.GetComponent<StatVariables>();
         StatVariables.IsTurn = false;
+        StatVariables.Strength.RemoveDurationExpired();
+        StatVariables.Agility.RemoveDurationExpired();
+        StatVariables.Endurance.RemoveDurationExpired();
+        StatVariables.Vitality.RemoveDurationExpired();
+        StatVariables.CritChance.RemoveDurationExpired();
 
         Eitan.SwitchState(Eitan.NotTurn);
     }

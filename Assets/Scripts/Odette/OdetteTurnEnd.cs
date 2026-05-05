@@ -16,6 +16,11 @@ public class OdetteTurnEnd : OdetteBaseStates
         CameraHolder = GameObject.Find("CameraMain");
         CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
         CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
+        StatVariables.Strength.RemoveDurationExpired();
+        StatVariables.Agility.RemoveDurationExpired();
+        StatVariables.Endurance.RemoveDurationExpired();
+        StatVariables.Vitality.RemoveDurationExpired();
+        StatVariables.CritChance.RemoveDurationExpired();
         Odette.SwitchState(Odette.NotTurn);
     }
 

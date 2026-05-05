@@ -11,10 +11,16 @@ public class EitanTurnStart : EitanBaseStates
 
     public override void EnterState(EitanStateManager Eitan)
     {
+        
         CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
         stats = GameObject.Find("Eitan").GetComponent<StatVariables>();
         CameraHolder = GameObject.Find("CameraMain");
+        stats.Strength.DurationTick();
+        stats.Agility.DurationTick();
+        stats.Endurance.DurationTick();
+        stats.Vitality.DurationTick();
+        stats.CritChance.DurationTick();
         if (stats.IsOnLeft)
         {
             CameraAnimator.Play("CameraAnimationLeftTurn");

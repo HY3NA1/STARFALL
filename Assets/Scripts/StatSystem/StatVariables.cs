@@ -24,6 +24,7 @@ public class StatVariables : MonoBehaviour
     public CharStat StartingEnergy;
     public CharStat EnergyOnTurnStart;
     public CharStat EnergyOnBaseAttack;
+    public bool TargetingAll = false;
 
 
     //Enemy Only

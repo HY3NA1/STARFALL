@@ -8,12 +8,15 @@ using UnityEngine.UI;
 public class EitanSelectAction : EitanBaseStates
 {
     private Button BaseAttackButton;
+    private Button SkillButton;
     public override void EnterState(EitanStateManager Eitan)
     {
         GameObject myEventSystem = GameObject.Find("EventSystem");
         BaseAttackButton = GameObject.Find("Attack").GetComponent<Button>();
+        SkillButton = GameObject.Find("Skill").GetComponent<Button>();
         myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(GameObject.Find("Attack"));
         BaseAttackButton.onClick.AddListener(delegate { PerformBaseAttack(Eitan); });
+        SkillButton.onClick.AddListener(delegate { GoToSkills(Eitan); });
 
     }
 
@@ -34,6 +37,14 @@ public class EitanSelectAction : EitanBaseStates
         Eitan.SwitchState(Eitan.BaseAttack);
         
         
+    }
+
+    private void GoToSkills(EitanStateManager Eitan)
+    {
+
+        Eitan.SwitchState(Eitan.SelectSkill);
+
+
     }
 
 }

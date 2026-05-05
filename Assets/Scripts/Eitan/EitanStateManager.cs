@@ -11,6 +11,7 @@ public class EitanStateManager : MonoBehaviour
     public EitanBaseAttack BaseAttack = new EitanBaseAttack(); 
     public EitanTurnEnd TurnEnd = new EitanTurnEnd();
     public EitanTargetSelect TargetSelect = new EitanTargetSelect();
+    public EitanSelectSkill SelectSkill = new EitanSelectSkill();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

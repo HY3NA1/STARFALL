@@ -11,6 +11,11 @@ public class OdetteTurnStart : OdetteBaseStates
 
     public override void EnterState(OdetteStateManager Odette)
     {
+        stats.Strength.DurationTick();
+        stats.Agility.DurationTick();
+        stats.Endurance.DurationTick();
+        stats.Vitality.DurationTick();
+        stats.CritChance.DurationTick();
         CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
         stats = GameObject.Find("Odette").GetComponent<StatVariables>();
