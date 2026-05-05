@@ -9,14 +9,10 @@ public class EitanBaseAttack : EitanBaseStates
     public override void EnterState(EitanStateManager Eitan)
     {
         stats = GameObject.Find("Eitan").GetComponent<StatVariables>();
-        
+        stats.CurrentEnergy += stats.EnergyOnBaseAttack.Value;
         DamageVariance = UnityEngine.Random.Range(0.85f, 1);
         stats.NextAttackHits = 1;
         stats.NextAttackDamage = (int)Math.Round((stats.Strength.Value * DamageVariance), 0);
-        if (WillCrit < stats.CritChance.Value) 
-        {
-            stats.NextAttackDamage *= 2;
-        }
         Eitan.SwitchState(Eitan.TargetSelect);
     }
 

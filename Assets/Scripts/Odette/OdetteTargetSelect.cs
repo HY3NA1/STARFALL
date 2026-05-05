@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class OdetteTargetSelect : OdetteBaseStates
 {
+    private int WillCrit;
+    private int DamageToBeDelt;
     private GameObject[] EnemyArray;
     private List<GameObject> PotentialTargets = new List<GameObject>();
     private GameObject EnemyCenter;
@@ -49,20 +51,6 @@ public class OdetteTargetSelect : OdetteBaseStates
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
         stats = GameObject.Find("Odette").GetComponent<StatVariables>();
         CameraHolder = GameObject.Find("CameraMain");
-        if (stats.IsOnLeft)
-        {
-            CameraAnimator.Play("CameraLeftReverse");
-            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
-            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
-
-        }
-        else if (stats.IsOnRight)
-        {
-            CameraAnimator.Play("CameraRightReverse");
-            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
-            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
-
-        }
 
 
         for (int i = 0; i < EnemyArray.Length; i++)
@@ -103,6 +91,35 @@ public class OdetteTargetSelect : OdetteBaseStates
 
 
 
+        if (stats.IsOnLeft)
+        {
+            CameraAnimator.Play("CameraLeftReverse");
+            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
+            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
+
+        }
+        else if (stats.IsOnRight)
+        {
+            CameraAnimator.Play("CameraRightReverse");
+            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
+            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public override void UpdateState(OdetteStateManager Odette)
@@ -111,6 +128,29 @@ public class OdetteTargetSelect : OdetteBaseStates
         if (GameObject.Find("CameraMain").GetComponent<FinishedAnimationChecker>().IsAnimationDone == true)
         {
             GameObject.Find("CameraMain").GetComponent<FinishedAnimationChecker>().IsAnimationDone = false;
+            if (GameObject.Find("Odette").GetComponent<StatVariables>().TargetingAll)
+            {
+                for (int c = 0; c < PotentialTargets.Count; c++)
+                {
+                    for (int k = 0; k < stats.NextAttackHits; k++)
+                    {
+                        DamageToBeDelt = (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - PotentialTargets[c].GetComponent<StatVariables>().Endurance.Value);
+                        WillCrit = UnityEngine.Random.Range(0, 100);
+                        if (GameObject.Find("Odette").GetComponent<StatVariables>().CritChance.Value >= WillCrit)
+                        {
+                            DamageToBeDelt *= 2;
+                        }
+                        PotentialTargets[c].GetComponent<StatVariables>().HitPoints -= DamageToBeDelt;
+
+                    }
+                }
+                GameObject.Find("Odette").GetComponent<StatVariables>().TargetingAll = false;
+                Odette.SwitchState(Odette.TurnEnd);
+            }
+
+
+
+
             if (RightHolderNeedsActivation)
             {
                 RightHolder.SetActive(true);
@@ -157,20 +197,51 @@ public class OdetteTargetSelect : OdetteBaseStates
     private void HittingRight(OdetteStateManager Odette)
     {
         Debug.Log("Damage Right");
-        EnemyRight.GetComponent<StatVariables>().HitPoints = EnemyRight.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyRight.GetComponent<StatVariables>().Endurance.Value);
+        for (int i = stats.NextAttackHits; i > 0; i--)
+        {
+            DamageToBeDelt = (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyRight.GetComponent<StatVariables>().Endurance.Value);
+            WillCrit = UnityEngine.Random.Range(0, 100);
+            if (GameObject.Find("Odette").GetComponent<StatVariables>().CritChance.Value >= WillCrit)
+            {
+                DamageToBeDelt *= 2;
+            }
+            EnemyRight.GetComponent<StatVariables>().HitPoints -= DamageToBeDelt;
+
+        }
+
         Odette.SwitchState(Odette.TurnEnd);
     }
     private void HittingLeft(OdetteStateManager Odette)
     {
         Debug.Log("Damage Left");
-        EnemyLeft.GetComponent<StatVariables>().HitPoints = EnemyLeft.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyLeft.GetComponent<StatVariables>().Endurance.Value);
+        for (int i = stats.NextAttackHits; i > 0; i--)
+        {
+            DamageToBeDelt = (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyLeft.GetComponent<StatVariables>().Endurance.Value);
+            WillCrit = UnityEngine.Random.Range(0, 100);
+            if (GameObject.Find("Odette").GetComponent<StatVariables>().CritChance.Value >= WillCrit)
+            {
+                DamageToBeDelt *= 2;
+            }
+            EnemyLeft.GetComponent<StatVariables>().HitPoints -= DamageToBeDelt;
+
+        }
         Odette.SwitchState(Odette.TurnEnd);
     }
     private void HittingCenter(OdetteStateManager Odette)
     {
         Debug.Log("Damage Center");
-        EnemyCenter.GetComponent<StatVariables>().HitPoints = EnemyCenter.GetComponent<StatVariables>().HitPoints - (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyCenter.GetComponent<StatVariables>().Endurance.Value);
-        Odette.SwitchState(Odette.TurnEnd);
-    }
+        for (int i = stats.NextAttackHits; i > 0; i--)
+        {
+            DamageToBeDelt = (GameObject.Find("Odette").GetComponent<StatVariables>().NextAttackDamage - EnemyCenter.GetComponent<StatVariables>().Endurance.Value);
+            WillCrit = UnityEngine.Random.Range(0, 100);
+            if (GameObject.Find("Odette").GetComponent<StatVariables>().CritChance.Value >= WillCrit)
+            {
+                DamageToBeDelt *= 2;
+            }
+            EnemyCenter.GetComponent<StatVariables>().HitPoints -= DamageToBeDelt;
 
+        }
+        Odette.SwitchState(Odette.TurnEnd);
+
+    }
 }

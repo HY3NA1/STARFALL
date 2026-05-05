@@ -51,29 +51,6 @@ public class EitanTargetSelect : EitanBaseStates
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
         stats = GameObject.Find("Eitan").GetComponent<StatVariables>();
         CameraHolder = GameObject.Find("CameraMain");
-        if (stats.IsOnLeft)
-        {
-            CameraAnimator.Play("CameraLeftReverse");
-            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
-            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
-
-        }
-        else if (stats.IsOnRight)
-        {
-            CameraAnimator.Play("CameraRightReverse");
-            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
-            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
-
-        }
-
-
-
-
-
-
-
-
-
 
 
         for (int i = 0; i < EnemyArray.Length; i++)
@@ -114,6 +91,35 @@ public class EitanTargetSelect : EitanBaseStates
 
 
 
+        if (stats.IsOnLeft)
+        {
+            CameraAnimator.Play("CameraLeftReverse");
+            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
+            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
+
+        }
+        else if (stats.IsOnRight)
+        {
+            CameraAnimator.Play("CameraRightReverse");
+            CameraHolder.transform.Translate(CameraHolder.GetComponent<CoordinateHolder>().DefaultCoord);
+            CameraHolder.transform.Rotate(CameraHolder.GetComponent<CoordinateHolder>().DefaultRotation);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
     }
 
     public override void UpdateState(EitanStateManager Eitan)
@@ -124,26 +130,28 @@ public class EitanTargetSelect : EitanBaseStates
             GameObject.Find("CameraMain").GetComponent<FinishedAnimationChecker>().IsAnimationDone = false;
             if (GameObject.Find("Eitan").GetComponent<StatVariables>().TargetingAll)
             {
-                for (int i = PotentialTargets.Count; i > 0; i--)
+                for (int c = 0; c < PotentialTargets.Count; c++)
                 {
-                    for (int k = stats.NextAttackHits; k > 0; k--)
+                    for (int k = 0; k < stats.NextAttackHits; k++)
                     {
-                        DamageToBeDelt = (GameObject.Find("Eitan").GetComponent<StatVariables>().NextAttackDamage - EnemyRight.GetComponent<StatVariables>().Endurance.Value);
+                        DamageToBeDelt = (GameObject.Find("Eitan").GetComponent<StatVariables>().NextAttackDamage - PotentialTargets[c].GetComponent<StatVariables>().Endurance.Value);
                         WillCrit = UnityEngine.Random.Range(0, 100);
                         if (GameObject.Find("Eitan").GetComponent<StatVariables>().CritChance.Value >= WillCrit)
                         {
                             DamageToBeDelt *= 2;
                         }
-                        EnemyRight.GetComponent<StatVariables>().HitPoints -= DamageToBeDelt;
+                        PotentialTargets[c].GetComponent<StatVariables>().HitPoints -= DamageToBeDelt;
 
                     }
                 }
                 GameObject.Find("Eitan").GetComponent<StatVariables>().TargetingAll = false;
                 Eitan.SwitchState(Eitan.TurnEnd);
             }
-            else
-            {
-                if (RightHolderNeedsActivation)
+
+
+
+
+            if (RightHolderNeedsActivation)
                 {
                     RightHolder.SetActive(true);
                     RightHP.SetActive(true);
@@ -164,7 +172,8 @@ public class EitanTargetSelect : EitanBaseStates
                     CenterTarget.onClick.AddListener(delegate { HittingCenter(Eitan); });
                     myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(CenterHolder);
                 }
-            }
+                
+            
         }
     }
 

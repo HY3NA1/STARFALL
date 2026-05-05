@@ -1287,6 +1287,7 @@ GameObject:
   - component: {fileID: 416083640}
   - component: {fileID: 416083639}
   - component: {fileID: 416083638}
+  - component: {fileID: 416083641}
   m_Layer: 5
   m_Name: SkillSlotC
   m_TagString: Untagged
@@ -1397,6 +1398,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416083636}
   m_CullTransparentMesh: 1
+--- !u!114 &416083641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416083636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d357114e4039cc14ea6b8cbe3ce7460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CSelected: 0
 --- !u!1 &491323351
 GameObject:
   m_ObjectHideFlags: 0
@@ -3051,6 +3065,7 @@ GameObject:
   - component: {fileID: 1072796227}
   - component: {fileID: 1072796226}
   - component: {fileID: 1072796225}
+  - component: {fileID: 1072796228}
   m_Layer: 5
   m_Name: SkillSlotB
   m_TagString: Untagged
@@ -3161,6 +3176,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072796223}
   m_CullTransparentMesh: 1
+--- !u!114 &1072796228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072796223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94157c0832664f544b59812574245289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BSelected: 0
 --- !u!1 &1079551953
 GameObject:
   m_ObjectHideFlags: 0
@@ -4405,6 +4433,7 @@ GameObject:
   - component: {fileID: 1436019332}
   - component: {fileID: 1436019331}
   - component: {fileID: 1436019330}
+  - component: {fileID: 1436019333}
   m_Layer: 5
   m_Name: SkillSlotA
   m_TagString: Untagged
@@ -4478,8 +4507,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Base_Attack_Player, Assembly-CSharp
-        m_MethodName: baseattack
+        m_TargetAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4527,6 +4556,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436019328}
   m_CullTransparentMesh: 1
+--- !u!114 &1436019333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436019328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f23e5dda6633cf4787aef9f21347df9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ASelected: 0
 --- !u!1 &1442650229
 GameObject:
   m_ObjectHideFlags: 0
@@ -5072,7 +5114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1724181096
 Transform:
   m_ObjectHideFlags: 0
@@ -5739,6 +5781,7 @@ GameObject:
   - component: {fileID: 1825994903}
   - component: {fileID: 1825994904}
   - component: {fileID: 1825994905}
+  - component: {fileID: 1825994906}
   m_Layer: 0
   m_Name: Odette
   m_TagString: PartyMember
@@ -5905,6 +5948,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextL: {fileID: 2046632761}
   TextR: {fileID: 307858204}
+--- !u!114 &1825994906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825994898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51f46359d06c3b45866ff0b7b2b4e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DemoralizeSkillDesc: "Cost: 4 \n \n Decreases Enemy Strength by -50% fod 3 turns"
+  EnergyDrainDesc: "Cost: 1 \n \n Deals very low damage to one enemy \n Gain 3 energy
+    \n Single hit"
+  SwanSongDesc: "Cost: 9 \n \n Deals Extreme damage to a all enemies \n Damage greatly
+    increased on low health \n Single hit"
 --- !u!1 &1830678894
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class EnergyUpdater : MonoBehaviour
         {
             TextL.text = (EnergyValue + "/9");
         }
-        if (StatVariables.IsOnLeft)
+        if (StatVariables.IsOnRight)
         {
             TextR.text = (EnergyValue + "/9");
         }
