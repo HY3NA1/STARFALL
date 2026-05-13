@@ -31,6 +31,7 @@ public class EitanTargetSelect : EitanBaseStates
     GameObject CameraHolder;
     public override void EnterState(EitanStateManager Eitan)
     {
+        Debug.Log("Eitan Selecting Target");
         CenterHolder = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().ReciticleCenter.gameObject;
         LeftHolder = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().ReciticleLeft.gameObject;
         RightHolder = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().ReciticleRight.gameObject;
@@ -41,6 +42,9 @@ public class EitanTargetSelect : EitanBaseStates
         LeftTarget = LeftHolder.GetComponent<Button>();
         RightTarget = RightHolder.GetComponent<Button>();
         EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        LeftTarget.onClick.RemoveAllListeners();
+        RightTarget.onClick.RemoveAllListeners();
+        CenterTarget.onClick.RemoveAllListeners();
 
         LeftHolderNeedsActivation = false;
         RightHolderNeedsActivation = false;
@@ -151,7 +155,7 @@ public class EitanTargetSelect : EitanBaseStates
 
 
 
-            if (RightHolderNeedsActivation)
+                if (RightHolderNeedsActivation)
                 {
                     RightHolder.SetActive(true);
                     RightHP.SetActive(true);
@@ -179,6 +183,7 @@ public class EitanTargetSelect : EitanBaseStates
 
     public override void LeaveState(EitanStateManager Eitan)
     {
+        Debug.Log("Ending Select Phase Eitan");
         LeftTarget.onClick.RemoveListener(delegate { HittingLeft(Eitan); });
         RightTarget.onClick.RemoveListener(delegate { HittingRight(Eitan); });
         CenterTarget.onClick.RemoveListener(delegate { HittingCenter(Eitan); });

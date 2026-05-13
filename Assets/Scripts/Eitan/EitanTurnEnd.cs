@@ -9,7 +9,7 @@ public class EitanTurnEnd : EitanBaseStates
     GameObject CameraHolder;
     public override void EnterState(EitanStateManager Eitan)
     {
-        
+        Debug.Log("Eitan Turn End");
         CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
         CombatMenu.SetActive(false);
         ThisCharacter = GameObject.Find("Eitan");

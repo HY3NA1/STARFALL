@@ -41,6 +41,9 @@ public class OdetteTargetSelect : OdetteBaseStates
         LeftTarget = LeftHolder.GetComponent<Button>();
         RightTarget = RightHolder.GetComponent<Button>();
         EnemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        LeftTarget.onClick.RemoveAllListeners();
+        RightTarget.onClick.RemoveAllListeners();
+        CenterTarget.onClick.RemoveAllListeners();
 
         LeftHolderNeedsActivation = false;
         RightHolderNeedsActivation = false;

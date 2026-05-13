@@ -8,6 +8,7 @@ public class EitanBaseAttack : EitanBaseStates
     private float DamageVariance;
     public override void EnterState(EitanStateManager Eitan)
     {
+
         stats = GameObject.Find("Eitan").GetComponent<StatVariables>();
         stats.CurrentEnergy += stats.EnergyOnBaseAttack.Value;
         DamageVariance = UnityEngine.Random.Range(0.85f, 1);

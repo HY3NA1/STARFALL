@@ -6,8 +6,10 @@ public class OdetteTurnEnd : OdetteBaseStates
     StatVariables StatVariables;
     GameObject CombatMenu;
     GameObject CameraHolder;
+    OdetteSkillSelect SkillEnder; 
     public override void EnterState(OdetteStateManager Odette)
     {
+        Debug.Log("Odette Turn End");
         ThisCharacter = GameObject.Find("Odette");
         CombatMenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().CombatMenu;
         CombatMenu.SetActive(false);

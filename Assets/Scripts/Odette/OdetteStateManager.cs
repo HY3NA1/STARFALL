@@ -12,6 +12,7 @@ public class OdetteStateManager : MonoBehaviour
     public OdetteTurnEnd TurnEnd = new OdetteTurnEnd();
     public OdetteTargetSelect TargetSelect = new OdetteTargetSelect();
     public OdetteSkillSelect SelectSkill = new OdetteSkillSelect();
+    public OdetteUseItem UseItem = new OdetteUseItem();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

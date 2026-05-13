@@ -1,14 +1,11 @@
-using System;
 using TMPro;
-using Unity.Multiplayer.Center.Common;
-using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-public class EitanSelectSkill : EitanBaseStates
+using System;
+
+public class EitanUseItem : EitanBaseStates
 {
-    private EitanSkillList skillList;
+    private ConsumeableTracker Items;
     private StatVariables variables;
     private GameObject skillmenu;
     private UnityEngine.UI.Button SkillA;
@@ -23,10 +20,10 @@ public class EitanSelectSkill : EitanBaseStates
     private string skillC;
     public override void EnterState(EitanStateManager Eitan)
     {
-        
+
         skillmenu = GameObject.Find("Manager").GetComponent<CombatMenuGetter>().SkillMenu;
         skillmenu.SetActive(true);
-        skillList = GameObject.Find("Eitan").GetComponent<EitanSkillList>();
+        Items = GameObject.Find("Manager").GetComponent<ConsumeableTracker>();
         variables = GameObject.Find("Eitan").GetComponent<StatVariables>();
         GameObject myEventSystem = GameObject.Find("EventSystem");
         SkillA = GameObject.Find("SkillSlotA").GetComponent<UnityEngine.UI.Button>();
@@ -36,16 +33,13 @@ public class EitanSelectSkill : EitanBaseStates
         SkillAName = GameObject.Find("SkillSlotA").GetComponentInChildren<TMP_Text>();
         SkillBName = GameObject.Find("SkillSlotB").GetComponentInChildren<TMP_Text>();
         SkillCName = GameObject.Find("SkillSlotC").GetComponentInChildren<TMP_Text>();
-        skillA = skillList.AdrenalineSkillDesc;
-        skillB = skillList.WideSlashSkillDesc;
-        skillC = skillList.LightspeedSkillDesc;
         SkillA.onClick.RemoveAllListeners();
         SkillB.onClick.RemoveAllListeners();
         SkillC.onClick.RemoveAllListeners();
 
-        SkillAName.text = ("Adrenaline");
-        SkillBName.text = ("Wide Slash");
-        SkillCName.text = ("Lightspeed");
+        SkillAName.text = ("Med Injector");
+        SkillBName.text = ("Energy Stim");
+        SkillCName.text = ("");
 
 
 
@@ -54,23 +48,16 @@ public class EitanSelectSkill : EitanBaseStates
 
 
 
-        if (variables.CurrentEnergy >= 5)
+        if (Items.MedInjectNum > 0)
         {
-            SkillA.onClick.AddListener(delegate { PerformAdrenaline(Eitan); });
+            SkillA.onClick.AddListener(delegate { MedInjector(Eitan); });
+
         }
 
-        if (variables.CurrentEnergy >= 3)
+        if (Items.EnergyStimNum > 0)
         {
-            SkillB.onClick.AddListener(delegate { PerformWideSlash(Eitan); });
+            SkillB.onClick.AddListener(delegate { EnergyStim(Eitan); });
         }
-
-        if (variables.CurrentEnergy >= 6)
-        {
-            SkillC.onClick.AddListener(delegate { PerformLightspeed(Eitan); });
-        }
-
-
-
     }
 
     public override void UpdateState(EitanStateManager Eitan)
@@ -78,28 +65,28 @@ public class EitanSelectSkill : EitanBaseStates
 
         
 
-            if (GameObject.Find("SkillSlotA").GetComponent<SkillAListener>().ASelected)
-            {
-                Debug.Log("Aslse");
-                SkillDesc.text = skillA;
-            }
-            else if (GameObject.Find("SkillSlotB").GetComponent<SkillBListener>().BSelected)
-            {
-                Debug.Log("Bslse");
-                SkillDesc.text = skillB;
-            }
-            else if (GameObject.Find("SkillSlotC").GetComponent<SkillCListener>().CSelected)
-            {
-                Debug.Log("Cslse");
-                SkillDesc.text = skillC;
-            }
+
+        if (GameObject.Find("SkillSlotA").GetComponent<SkillAListener>().ASelected)
+        {
+            Debug.Log("Aslse");
+            SkillDesc.text = ("Remaining: " + Items.MedInjectNum + "\n \n Heals 50% of max health");
+        }
+        else if (GameObject.Find("SkillSlotB").GetComponent<SkillBListener>().BSelected)
+        {
+            Debug.Log("Bslse");
+            SkillDesc.text = ("Remaining: " + Items.EnergyStimNum + "\n \n Gain 5 energy points");
+        }
+        else if (GameObject.Find("SkillSlotC").GetComponent<SkillCListener>().CSelected)
+        {
+            Debug.Log("Cslse");
+            SkillDesc.text = ("");
+        }
 
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Eitan.SwitchState(Eitan.SelectAction);
         }
-
 
     }
 
@@ -111,22 +98,19 @@ public class EitanSelectSkill : EitanBaseStates
         SkillC.onClick.RemoveAllListeners();
     }
 
-    private void PerformAdrenaline(EitanStateManager Eitan)
+    private void MedInjector(EitanStateManager Eitan) 
+    { 
+        variables.HitPoints += (int)Math.Round((variables.Vitality.Value * 0.5), 0);
+        Items.MedInjectNum--;
+        Eitan.SwitchState(Eitan.TurnEnd);
+
+    }
+
+    private void EnergyStim(EitanStateManager Eitan) 
     {
-        skillList.AdrenalineSkill();
+        variables.CurrentEnergy += 5;
+        Items.EnergyStimNum--;
         Eitan.SwitchState(Eitan.TurnEnd);
     }
-
-    private void PerformWideSlash(EitanStateManager Eitan)
-    {
-        variables.TargetingAll = true;
-        skillList.WideSlashSkill();
-        Eitan.SwitchState(Eitan.TargetSelect);
-    }
-
-    private void PerformLightspeed(EitanStateManager Eitan)
-    {
-        skillList.LightspeedSkill();
-        Eitan.SwitchState(Eitan.TargetSelect);
-    }
+    
 }

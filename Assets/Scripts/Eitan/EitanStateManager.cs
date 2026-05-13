@@ -12,6 +12,7 @@ public class EitanStateManager : MonoBehaviour
     public EitanTurnEnd TurnEnd = new EitanTurnEnd();
     public EitanTargetSelect TargetSelect = new EitanTargetSelect();
     public EitanSelectSkill SelectSkill = new EitanSelectSkill();
+    public EitanUseItem UseItem = new EitanUseItem();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
