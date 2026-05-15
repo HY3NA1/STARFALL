@@ -35,6 +35,7 @@ public class EitanSelectAction : EitanBaseStates
     {
         BaseAttackButton.onClick.RemoveAllListeners();
         SkillButton.onClick.RemoveAllListeners();
+        ItemButton.onClick.RemoveAllListeners();
         GameObject.Find("CombatMenu").SetActive(false);
     }
 

@@ -32,6 +32,18 @@ public class StatVariables : MonoBehaviour
     public bool IsTargetRight;
     public bool IsTargetCenter;
 
+    //Hound Only
+    public bool BiteNext = false;
+    public bool SwipeNext = false;
+    public bool WhipCrackTurn = false;
+
+    //Hound Master Only
+    public int TurnsRemaining;
+    public bool WhipCrackNext = false;
+    public bool PhaseTwo = false;
+    public bool PhaseTransitionDone = false;
+    public bool WhipComboNext = false;
+    public bool WhipSlashNext = false;
     void Start()
     {
         HitPoints = Vitality.Value;
@@ -49,8 +61,14 @@ public class StatVariables : MonoBehaviour
         if (HitPoints <= 0) 
         { 
             IsDead = true;
+            IsActive = false;
+            gameObject.SetActive(false);
         }
 
         HealthLost = Vitality.Value - HitPoints;
+        if (CurrentEnergy > 9) 
+        { 
+            CurrentEnergy = 9;
+        }
     }
 }

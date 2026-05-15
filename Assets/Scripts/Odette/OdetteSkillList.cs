@@ -43,7 +43,7 @@ public class OdetteSkillList : MonoBehaviour
     {
         gameObject.GetComponent<StatVariables>().CurrentEnergy -= 1;
         gameObject.GetComponent<StatVariables>().CurrentEnergy += 3;
-        DamageVariance = UnityEngine.Random.Range(0.20f, 0.30f);
+        DamageVariance = UnityEngine.Random.Range(0.50f, 0.60f);
         gameObject.GetComponent<StatVariables>().NextAttackDamage = (int)Math.Round((gameObject.GetComponent<StatVariables>().Strength.Value * DamageVariance), 0);
         gameObject.GetComponent<StatVariables>().NextAttackHits = 1;
     }

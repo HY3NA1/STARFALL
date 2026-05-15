@@ -50,34 +50,40 @@ public class OdetteUseItem : OdetteBaseStates
 
         if (Items.MedInjectNum > 0)
         {
+            SkillA.onClick.RemoveAllListeners();
             SkillA.onClick.AddListener(delegate { MedInjector(Odette); });
+
         }
 
         if (Items.EnergyStimNum > 0)
         {
+            SkillB.onClick.RemoveAllListeners();
             SkillB.onClick.AddListener(delegate { EnergyStim(Odette); });
         }
     }
 
     public override void UpdateState(OdetteStateManager Odette)
     {
-        
+
+
+
 
         if (GameObject.Find("SkillSlotA").GetComponent<SkillAListener>().ASelected)
         {
-            Debug.Log("Aslse");
+            Debug.Log("AslseO");
             SkillDesc.text = ("Remaining: " + Items.MedInjectNum + "\n \n Heals 50% of max health");
         }
         else if (GameObject.Find("SkillSlotB").GetComponent<SkillBListener>().BSelected)
         {
-            Debug.Log("Bslse");
+            Debug.Log("BslseO");
             SkillDesc.text = ("Remaining: " + Items.EnergyStimNum + "\n \n Gain 5 energy points");
         }
         else if (GameObject.Find("SkillSlotC").GetComponent<SkillCListener>().CSelected)
         {
-            Debug.Log("Cslse");
+            Debug.Log("CslseO");
             SkillDesc.text = ("");
         }
+
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -99,6 +105,7 @@ public class OdetteUseItem : OdetteBaseStates
         variables.HitPoints += (int)Math.Round((variables.Vitality.Value * 0.5), 0);
         Items.MedInjectNum--;
         Odette.SwitchState(Odette.TurnEnd);
+
     }
 
     private void EnergyStim(OdetteStateManager Odette)

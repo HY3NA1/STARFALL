@@ -32,6 +32,7 @@ public class OdetteSelectAction : OdetteBaseStates
         BaseAttackButton.onClick.RemoveAllListeners();
         SkillButton.onClick.RemoveAllListeners();
         ItemButton.onClick.RemoveAllListeners();
+        ItemButton.onClick.RemoveAllListeners();
         GameObject.Find("CombatMenu").SetActive(false);
     }
 

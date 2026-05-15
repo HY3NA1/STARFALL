@@ -16,6 +16,7 @@ public class OdetteTurnStart : OdetteBaseStates
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
         stats = GameObject.Find("Odette").GetComponent<StatVariables>();
         CameraHolder = GameObject.Find("CameraMain");
+        stats.CurrentEnergy++;
         if (stats.IsOnLeft)
         {
             CameraAnimator.Play("CameraAnimationLeftTurn");

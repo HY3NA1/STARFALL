@@ -16,6 +16,7 @@ public class EitanTurnStart : EitanBaseStates
         CameraAnimator = GameObject.Find("CameraMain").GetComponent<Animator>();
         stats = GameObject.Find("Eitan").GetComponent<StatVariables>();
         CameraHolder = GameObject.Find("CameraMain");
+        stats.CurrentEnergy++;
         stats.Strength.DurationTick();
         stats.Agility.DurationTick();
         stats.Endurance.DurationTick();

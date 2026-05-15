@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class CombatMenuGetter : MonoBehaviour
@@ -10,6 +11,7 @@ public class CombatMenuGetter : MonoBehaviour
     public GameObject HPRight;
     public GameObject HPCenter;
     public GameObject SkillMenu;
+    public TMP_Text Callout;
     void Start()
     {
   

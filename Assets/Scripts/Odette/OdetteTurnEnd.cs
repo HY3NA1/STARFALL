@@ -6,7 +6,6 @@ public class OdetteTurnEnd : OdetteBaseStates
     StatVariables StatVariables;
     GameObject CombatMenu;
     GameObject CameraHolder;
-    OdetteSkillSelect SkillEnder; 
     public override void EnterState(OdetteStateManager Odette)
     {
         Debug.Log("Odette Turn End");

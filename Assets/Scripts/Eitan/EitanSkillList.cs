@@ -10,7 +10,7 @@ public class EitanSkillList : MonoBehaviour
     StatModifier AdrenalineEndurance = new StatModifier(0.5f, StatModType.PercentAddDecrease, 3);
     private float DamageVariance;
 
-    public string AdrenalineSkillDesc = ("Cost: 5 \n \n Increases Self Agility and Strength by +50% for 3 turns \n Decreases Self Endurance by -50% for 3 turns");
+    public string AdrenalineSkillDesc = ("Cost: 5 \n \n Increases Self Strength by +50% for 3 turns \n Decreases Self Endurance by -50% for 3 turns");
 
     public string WideSlashSkillDesc = ("Cost: 3 \n \n Deals low damage to all enemies \n Single hit");
 
@@ -32,12 +32,12 @@ public class EitanSkillList : MonoBehaviour
     {
         gameObject.GetComponent<StatVariables>().CurrentEnergy -= 5;
 
-        gameObject.GetComponent<StatVariables>().Strength.RemoveModifier(AdrenalineStrength);
-        gameObject.GetComponent<StatVariables>().Agility.RemoveModifier(AdrenalineSpeed);
-        gameObject.GetComponent<StatVariables>().Endurance.RemoveModifier(AdrenalineEndurance);
-        gameObject.GetComponent<StatVariables>().Strength.AddModifier(AdrenalineStrength);
-        gameObject.GetComponent<StatVariables>().Agility.AddModifier(AdrenalineSpeed);
-        gameObject.GetComponent<StatVariables>().Endurance.AddModifier(AdrenalineEndurance);
+        GameObject.Find("Eitan").GetComponent<StatVariables>().Strength.RemoveModifier(AdrenalineStrength);
+        
+        GameObject.Find("Eitan").GetComponent<StatVariables>().Endurance.RemoveModifier(AdrenalineEndurance);
+        GameObject.Find("Eitan").GetComponent<StatVariables>().Strength.AddModifier(AdrenalineStrength);
+        
+        GameObject.Find("Eitan").GetComponent<StatVariables>().Endurance.AddModifier(AdrenalineEndurance);
     }
 
     public void WideSlashSkill()

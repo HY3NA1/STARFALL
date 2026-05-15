@@ -38,6 +38,8 @@ public class TurnManager : MonoBehaviour
     {
         AllActive.Clear();
         ActiveInTurnOrder.Clear();
+        HighestAgility = int.MinValue;
+        LowestAgility = int.MaxValue;
         //Finds Both Party Members on the battle field, so long as they arent dead and adds them to the list of characters activly taking turns
         for (int i = 0; i < PartyMembers.Length; i++)
         {
@@ -89,6 +91,13 @@ public class TurnManager : MonoBehaviour
 
             }
 
+        }
+        if (ActiveInTurnOrder.Count == 0)
+        {
+            Debug.Log("Turn Order Empty");
+            {
+                BeginRound();
+            }
         }
 
         //Double Check to make sure the character is not dead and  is still in play
@@ -158,9 +167,17 @@ public class TurnManager : MonoBehaviour
 
     public void RoundCleanUp() 
     {
-        for (int i = 0; i < AllActive.Count; i++)
+        for (int i = 0; i < Enemies.Length; i++)
         {
-            AllActive[i].GetComponent<StatVariables>().Agility.RemoveAllModifiersFromSource(gameObject);
+            Enemies[i].GetComponent<StatVariables>().Agility.RemoveAllModifiersFromSource(gameObject);
+            Enemies[i].GetComponent<StatVariables>().WhipCrackTurn = false;
+            Enemies[i].GetComponent<StatVariables>().IsTurn = false;
+
+        }
+        for (int i = 0; i < PartyMembers.Length; i++) 
+        {
+            PartyMembers[i].GetComponent<StatVariables>().Agility.RemoveAllModifiersFromSource(gameObject);
+            PartyMembers[i].GetComponent<StatVariables>().IsTurn = false;
         }
         BeginRound();
     }

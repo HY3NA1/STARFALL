@@ -2,16 +2,20 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR.Haptics;
 
-public class TrainingDummyStateManager : MonoBehaviour
+public class HoundStateManager : MonoBehaviour
 {
 
-    TrainingDummyBaseStates CurrentState;
+    HoundBaseStates CurrentState;
+    public GameObject Eitan;
+    public GameObject Odette;
     public GameObject Self;
-    public TrainingDummyNotTurn NotTurn = new TrainingDummyNotTurn();
-    public TrainingDummyTurnStart TurnStart = new TrainingDummyTurnStart();
-    public TrainingDummySelectAction SelectAction = new TrainingDummySelectAction();
-    public TrainingDummyActionWobble Wobble = new TrainingDummyActionWobble();
-    public TrainingDummyTurnEnd TurnEnd = new TrainingDummyTurnEnd();
+    public HoundNotTurn NotTurn = new HoundNotTurn();
+    public HoundTurnStart TurnStart = new HoundTurnStart();
+    public HoundSelectAction SelectAction = new HoundSelectAction();
+    public HoundBite Bite = new HoundBite();
+    public HoundSwipe Swipe = new HoundSwipe();
+    public HoundTarget Target = new HoundTarget();
+    public HoundTurnEnd TurnEnd = new HoundTurnEnd();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,7 +31,7 @@ public class TrainingDummyStateManager : MonoBehaviour
         CurrentState.UpdateState(this);
     }
 
-    public void SwitchState(TrainingDummyBaseStates state)
+    public void SwitchState(HoundBaseStates state)
     {
         CurrentState.LeaveState(this);
         CurrentState = state;
